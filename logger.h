@@ -9,11 +9,12 @@
 class Logger
 {
     std::ofstream *fout;
+    char* getData();
 public:
     Logger(std::string);
-    void log(std::string);
     void logFile(std::string);
     void logConsole(std::string);
+    void log(std::string);
     ~Logger();
 };
 

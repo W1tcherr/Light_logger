@@ -5,10 +5,13 @@ Logger::Logger(std::string path)
     this->fout = new std::ofstream(path,std::ofstream::app);
 }
 
-void Logger::log(std::string strLog)
+char* Logger::getData()
 {
-    logFile(strLog);
-    logConsole(strLog);
+    time_t t = time(NULL);
+    tm *cur_t = localtime(&t);
+    char* tmp = new char[20];
+    strftime(tmp, 20 , "%Y-%m-%d %H:%M:%S", cur_t);
+    return tmp;
 }
 
 void Logger::logFile(std::string strLog)
@@ -17,16 +20,18 @@ void Logger::logFile(std::string strLog)
         throw std::runtime_error("\nFile not open!\n");
     else
     {
-        time_t t = time(NULL);
-        tm *cur_t = localtime(&t);
-        char tmp[32];
-        strftime(tmp, 31 , "%Y-%m-%d %H:%M:%S", cur_t);
-        *fout << tmp << " - " << strLog << std::endl;
+        *fout << getData() << " - " << strLog << std::endl;
     }
 }
 void Logger::logConsole(std::string strLog)
 {
-    std::cout << '\n' << strLog << std::endl;
+    std::cout << '\n' << getData() << " - " << strLog << std::endl;
+}
+
+void Logger::log(std::string strLog)
+{
+    logFile(strLog);
+    logConsole(strLog);
 }
 
 Logger::~Logger()

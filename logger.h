@@ -12,6 +12,8 @@ class Logger
 public:
     Logger(std::string);
     void log(std::string);
+    void logFile(std::string);
+    void logConsole(std::string);
     ~Logger();
 };
 

@@ -4,7 +4,14 @@ Logger::Logger(std::string path)
 {
     this->fout = new std::ofstream(path,std::ofstream::app);
 }
+
 void Logger::log(std::string strLog)
+{
+    logFile(strLog);
+    logConsole(strLog);
+}
+
+void Logger::logFile(std::string strLog)
 {
     if(!fout->is_open())
         throw std::runtime_error("\nFile not open!\n");
@@ -17,6 +24,11 @@ void Logger::log(std::string strLog)
         *fout << tmp << " - " << strLog << std::endl;
     }
 }
+void Logger::logConsole(std::string strLog)
+{
+    std::cout << '\n' << strLog << std::endl;
+}
+
 Logger::~Logger()
 {
     delete this->fout;

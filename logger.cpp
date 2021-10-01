@@ -1,40 +1,37 @@
 #include "logger.h"
 
-Logger::Logger(std::string path)
+char* Logger::getDate()
 {
-    this->fout = new std::ofstream(path,std::ofstream::app);
-}
-
-char* Logger::getData()
-{
-    time_t t = time(NULL);
+    time_t t = time(nullptr);
     tm *cur_t = localtime(&t);
-    char* tmp = new char[20];
-    strftime(tmp, 20 , "%Y-%m-%d %H:%M:%S", cur_t);
-    return tmp;
+    char* temp = new char[20];
+    strftime(temp, 20 , "%Y-%m-%d %H:%M:%S", cur_t);
+    return temp;
 }
 
-void Logger::logFile(std::string strLog)
+void Logger::logFile(const std::string& msgLog, const std::string& path)
 {
+    fout = new std::ofstream(path,std::ofstream::app);
     if(!fout->is_open())
         throw std::runtime_error("\nFile not open!\n");
     else
     {
-        *fout << getData() << " - " << strLog << std::endl;
+        *fout << getDate() << " - " << msgLog << std::endl;
     }
 }
-void Logger::logConsole(std::string strLog)
+
+void Logger::logConsole(const std::string& msgLog)
 {
-    std::cout << '\n' << getData() << " - " << strLog << std::endl;
+    std::cout << '\n' << getDate() << " - " << msgLog << std::endl;
 }
 
-void Logger::log(std::string strLog)
+void Logger::log(const std::string& msgLog, const std::string& path)
 {
-    logFile(strLog);
-    logConsole(strLog);
+    logFile(msgLog, path);
+    logConsole(msgLog);
 }
 
 Logger::~Logger()
 {
-    delete this->fout;
+    delete fout;
 }

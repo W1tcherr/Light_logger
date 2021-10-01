@@ -8,13 +8,13 @@
 
 class Logger
 {
-    std::ofstream *fout;
-    char* getData();
+    static inline std::ofstream *fout = nullptr;
+    static char* getDate();
+
 public:
-    Logger(std::string);
-    void logFile(std::string);
-    void logConsole(std::string);
-    void log(std::string);
+    static void logFile(const std::string& msgLog, const std::string& path);
+    static void logConsole(const std::string&);
+    static void log(const std::string& msgLog, const std::string& path);
     ~Logger();
 };
 

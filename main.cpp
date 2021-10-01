@@ -1,9 +1,11 @@
 #include "logger.h"
 
+// добавить потокобезопастность метода записи в файл
+
 int main() {
-    Logger logger("../log.txt");
-    logger.log("hello");
-    logger.log("world");
+
+    Logger::log("hello","../log.txt");
+    Logger::log("world","../log.txt");
 
     return 0;
 }

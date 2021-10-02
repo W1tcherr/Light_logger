@@ -11,13 +11,14 @@ char* Logger::getDate()
 
 void Logger::logFile(const std::string& msgLog, const std::string& path)
 {
-    fout = new std::ofstream(path,std::ofstream::app);
+    fout->open(path,std::ofstream::app);
     if(!fout->is_open())
         throw std::runtime_error("\nFile not open!\n");
     else
     {
         *fout << getDate() << " - " << msgLog << std::endl;
     }
+    fout->close();
 }
 
 void Logger::logConsole(const std::string& msgLog)

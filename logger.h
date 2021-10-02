@@ -8,7 +8,7 @@
 
 class Logger
 {
-    static inline std::ofstream *fout = nullptr;
+    static inline std::ofstream *fout = new std::ofstream();
     static char* getDate();
 
 public:

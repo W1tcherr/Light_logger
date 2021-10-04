@@ -5,11 +5,13 @@
 #include <fstream>
 #include <ctime>
 #include <string>
+#include <mutex>
 
 class Logger
 {
     static inline std::ofstream *fout = new std::ofstream();
     static char* getDate();
+    static std::mutex mtx;
 
 public:
     static void logFile(const std::string& msgLog, const std::string& path);

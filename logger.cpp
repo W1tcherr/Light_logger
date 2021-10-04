@@ -11,6 +11,7 @@ char* Logger::getDate()
 
 void Logger::logFile(const std::string& msgLog, const std::string& path)
 {
+    std::lock_guard<std::mutex> guard(mtx);
     fout->open(path,std::ofstream::app);
     if(!fout->is_open())
         throw std::runtime_error("\nFile not open!\n");
@@ -28,8 +29,8 @@ void Logger::logConsole(const std::string& msgLog)
 
 void Logger::log(const std::string& msgLog, const std::string& path)
 {
-    logFile(msgLog, path);
     logConsole(msgLog);
+    logFile(msgLog, path);
 }
 
 Logger::~Logger()

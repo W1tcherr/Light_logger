@@ -10,8 +10,8 @@
 class Logger
 {
     static inline std::ofstream *fout = new std::ofstream();
+    static inline std::mutex mtx;
     static char* getDate();
-    static std::mutex mtx;
 
 public:
     static void logFile(const std::string& msgLog, const std::string& path);

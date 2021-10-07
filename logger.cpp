@@ -17,7 +17,7 @@ void Logger::logFile(const std::string& msgLog, const std::string& path)
         throw std::runtime_error("\nFile not open!\n");
     else
     {
-        *fout << getDate() << " - " << msgLog << std::endl;
+        *fout << getDate() << " - " << std::this_thread::get_id() << " - " << msgLog << std::endl;
     }
     fout->close();
 }

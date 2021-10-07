@@ -6,6 +6,7 @@
 #include <ctime>
 #include <string>
 #include <mutex>
+#include <thread>
 
 class Logger
 {

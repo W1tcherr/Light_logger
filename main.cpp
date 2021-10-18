@@ -22,6 +22,6 @@ void test_log_function(int second)
     for(int i = 0; i < 10; ++i)
     {
         Logger::log("hi", "../log.txt");
-        std::this_thread::sleep_for(std::chrono::milliseconds(100*second));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10*second));
     }
 }

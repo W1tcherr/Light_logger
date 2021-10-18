@@ -1,12 +1,22 @@
 #include "logger.h"
 
-char* Logger::getDate()
+std::string Logger::getDate()
 {
-    time_t t = time(nullptr);
-    tm *cur_t = localtime(&t);
-    char* temp = new char[20];
-    strftime(temp, 20 , "%Y-%m-%d %H:%M:%S", cur_t);
-    return temp;
+    using namespace std::chrono;
+    using namespace std::string_view_literals;
+
+    std::stringstream temp;
+
+    auto const now = system_clock::now();
+    auto now_time = system_clock::to_time_t(now);
+    auto ms = duration_cast<milliseconds>(now.time_since_epoch()).count() % 1000;
+    auto gm_time = std::gmtime(&now_time);
+
+    temp << "["sv
+       << std::put_time(gm_time, "%H:%M:%S") << "."sv << ms << " "sv
+       << std::put_time(gm_time, "%d.%m.%Y") << "] "sv;
+
+    return temp.str();
 }
 
 void Logger::logFile(const std::string& msgLog, const std::string& path)

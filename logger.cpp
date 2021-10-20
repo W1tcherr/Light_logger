@@ -34,6 +34,7 @@ void Logger::logFile(const std::string& msgLog, const std::string& path)
 
 void Logger::logConsole(const std::string& msgLog)
 {
+    std::lock_guard<std::mutex> guard(mtx);
     std::cout << '\n' << getDate() << " - " << msgLog << std::endl;
 }
 
